@@ -1,3 +1,9 @@
+/*QUESTION - 2:
+Design a protected route /result that only logged in studnets can access
+Use session middleware to verify if the stundent is logged in If valid show: "Hi[name], ypur results are available!"
+If not, return: "Access denied: Please login to view results"
+Add a /logout route to destroy the session and clear the cookie*/
+
 const express = require('express');
 const session = require('express-session');
 
