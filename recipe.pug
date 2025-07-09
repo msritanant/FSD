@@ -1,0 +1,21 @@
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    title= recipe.name
+    link(rel="stylesheet", href="/public/style.css")
+  body
+    h1= recipe.name
+
+    img(src=recipe.image, alt=recipe.name, width="400")
+
+    h2 Ingredients
+    ul
+      each ingredient in recipe.ingredients
+        // Inline CSS highlight (yellow background)
+        li(style="background-color: #fff9c4; padding: 5px; margin-bottom: 4px;")= ingredient
+
+    h2 Steps
+    ol
+      each step in recipe.steps
+        li= step
