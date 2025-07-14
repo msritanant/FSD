@@ -15,21 +15,29 @@ mongoose.connect('mongodb://localhost:27017/employeeDB', {
 });
 
 const employeeSchema = new mongoose.Schema({
-    empId: Number,
-    name: String,
+    empId: {
+        type: Number,
+        required: true,
+        unique: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
     department: String,
     designation: String,
     salary: Number
 });
 
-const Employee = mongoose.model('Employee', employeeSchema);
+
+const Empolyee = mongoose.model('Empolyee', employeeSchema);
 
 app.post('/add', async(req, res) =>{
     try
     {
-        const newEmployee = new Employee(req.body);
-        const result = await newEmployee.save();
-        res.json({message: 'Employee', result})
+        const newEmpolyee = new Empolyee(req.body);
+        const result = await newEmpolyee.save();
+        res.json({message: 'Empolyee', result})
     }
     catch(error)
     {
@@ -40,7 +48,7 @@ app.post('/add', async(req, res) =>{
 app.get('/employees', async (req, res) =>{
     try
     {
-        const employees = await Employee.find();
+        const employees = await Empolyee.find();
         res.json(employees);
     }
     catch(error)
@@ -49,11 +57,11 @@ app.get('/employees', async (req, res) =>{
     }
 });
 
-app.get('/Employee/:empId', async (req, res) =>{
+app.get('/Empolyee/:empId', async (req, res) =>{
     try
     {
-        const Employee = await Employee.findOne({ empId: req.params.empId});
-        res.json(Employee);
+        const Empolyee = await Empolyee.findOne({ empId: req.params.empId});
+        res.json(Empolyee);
     }
     catch(error)
     {
@@ -64,7 +72,7 @@ app.get('/Employee/:empId', async (req, res) =>{
 app.put('/update/:empId', async (req, res) =>{
     try
     {
-        const updated = await Employee.findOneAndUpdate(
+        const updated = await Empolyee.findOneAndUpdate(
             {
                 empId: req.params.empId
             },
@@ -74,7 +82,7 @@ app.put('/update/:empId', async (req, res) =>{
             }
         );
 
-        res.json({ message: 'Employee Updated', updated});
+        res.json({ message: 'Empolyee Updated', updated});
     }
     catch(error)
     {
@@ -85,8 +93,8 @@ app.put('/update/:empId', async (req, res) =>{
 app.delete('/delete/:empId', async(req, res) =>{
     try
     {
-        const deleted = await Employee.findOneAndDelete({ empId: req.params.empId});
-        res.json({ message: 'Employee deleted', deleted});
+        const deleted = await Empolyee.findOneAndDelete({ empId: req.params.empId});
+        res.json({ message: 'Empolyee deleted', deleted});
     }
     catch(error)
     {
